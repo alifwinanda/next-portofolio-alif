@@ -14,9 +14,23 @@ import CometIcon from "@/assets/svg/comet/comet.svg"
 import MoonIcon from "@/assets/svg/moon-solid.svg"
 
 const NavbarWrapper = styled.div`
-  width: 100%;
-  background-color: ${theme.colors.aliceBlue.DEFAULT};
-  padding: 8px 0px;
+  .active {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    transition: 0.3s linear;
+    background-color: ${theme.colors.aliceBlue.DEFAULT};
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.08);
+  }
+  .hidden {
+    top: -80px;
+    transition: 0.3s linear;
+  }
 `
 
 const DarkModeButton = styled.div`
@@ -32,6 +46,26 @@ const NavBar = (): JSX.Element => {
   const handleClickDarkMode = () => {
     setIsDarkmode(!isDarkMode)
   }
+  const [prevScrollPos, setPrevScrollPos] = useState(0)
+  const [visible, setVisible] = useState(true)
+
+  const handleScroll = () => {
+    const currentScrollPos = window.scrollY
+
+    if (currentScrollPos < prevScrollPos) {
+      setVisible(false)
+    } else {
+      setVisible(true)
+    }
+
+    setPrevScrollPos(currentScrollPos)
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll)
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  })
 
   return (
     <NavbarWrapper>
