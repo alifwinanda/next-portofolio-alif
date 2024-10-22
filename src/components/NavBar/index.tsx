@@ -6,9 +6,12 @@ import {
   Flex,
   Heading,
   Spacer,
+  Link,
 } from "@chakra-ui/react"
 import styled from "@emotion/styled"
 import theme from "@/common/theme"
+import CometIcon from "@/assets/svg/comet/comet.svg"
+import MoonIcon from "@/assets/svg/moon-solid.svg"
 
 const NavbarWrapper = styled.div`
   width: 100%;
@@ -16,7 +19,14 @@ const NavbarWrapper = styled.div`
   padding: 8px 0px;
 `
 
-function NavBar() {
+const DarkModeButton = styled.div`
+  border-radius: 50%;
+  border: 2px solid ${theme.colors.englishViolet.DEFAULT};
+  box-sizing: border-box;
+  padding: 5px;
+`
+
+const NavBar = (): JSX.Element => {
   const [isDarkMode, setIsDarkmode] = useState<boolean>(false)
 
   const handleClickDarkMode = () => {
@@ -25,17 +35,19 @@ function NavBar() {
 
   return (
     <NavbarWrapper>
-      <Container maxW="4xl">
+      <Container maxW="5xl">
         <Flex alignContent={"space-between"}>
-          <Heading>Alif&apos;s Portofolio</Heading>
+          <CometIcon width={30} />
+          <Heading size="lg">Wepe</Heading>
           <Spacer />
-          <Button
-            onClick={handleClickDarkMode}
-            backgroundColor={isDarkMode ? "#130430" : "#c9b7eb"}
-            color={isDarkMode ? "#c9b7eb" : "#130430"}
-          >
-            {isDarkMode ? "Dark Mode" : "Light Mode"}
-          </Button>
+          <Flex gap="16px" alignItems="center">
+            <Link>About</Link>
+            <Link>Tech</Link>
+            <Link>Contact</Link>
+            <DarkModeButton>
+              <MoonIcon height={30} width={30} />
+            </DarkModeButton>
+          </Flex>
         </Flex>
       </Container>
     </NavbarWrapper>
